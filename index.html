@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Portfolio - Neuroscience Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #0f3460;
+            --accent: #e94560;
+            --light: #f8f9fa;
+            --text: #2d3436;
+            --text-light: #636e72;
+            --border: #dfe6e9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        nav {
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            padding: 6rem 0 4rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: slideIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #4fffb0;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .section {
+            padding: 4rem 0;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .section-description {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .work-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .work-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .work-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .work-type {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .work-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .work-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .work-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--light);
+            color: var(--secondary);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .blog-card:hover {
+            border-left-color: var(--accent);
+            transform: translateX(5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .blog-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .blog-excerpt {
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .read-more:hover {
+            gap: 0.75rem;
+        }
+
+        .about-section {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+        }
+
+        .about-content {
+            max-width: 700px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-section {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 16px;
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .contact-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            background: white;
+            color: var(--primary);
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 4rem 0 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="#research">Research</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="status-badge">Master's Student · Neuroscience</div>
+                    <h1>Your Name</h1>
+                    <p class="hero-subtitle">
+                        Exploring the frontiers of neuroscience through rigorous research and analytical inquiry. 
+                        Currently completing my master's degree with a focus on [your research area].
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="research" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Research & Academic Work</h2>
+                    <p class="section-description">
+                        A collection of my research projects, papers, and academic contributions throughout my master's program.
+                    </p>
+                </div>
+                
+                <div class="work-grid">
+                    <div class="work-card">
+                        <span class="work-type">Thesis Project</span>
+                        <h3>Your Thesis Title Here</h3>
+                        <p class="work-description">
+                            Brief description of your thesis research, methodology, and key findings. This is your primary research contribution.
+                        </p>
+                        <div class="work-meta">
+                            <span class="tag">Neuroscience</span>
+                            <span class="tag">Research</span>
+                            <span class="tag">2024-2025</span>
+                        </div>
+                    </div>
+
+                    <div class="work-card">
+                        <span class="work-type">Research Paper</span>
+                        <h3>Project Title One</h3>
+                        <p class="work-description">
+                            Description of your research paper or project. Include the main question you investigated and your approach.
+                        </p>
+                        <div class="work-meta">
+                            <span class="tag">Analysis</span>
+                            <span class="tag">Methodology</span>
+                        </div>
+                    </div>
+
+                    <div class="work-card">
+                        <span class="work-type">Seminar Paper</span>
+                        <h3>Project Title Two</h3>
+                        <p class="work-description">
+                            Another academic work showcasing your analytical and writing capabilities in the field.
+                        </p>
+                        <div class="work-meta">
+                            <span class="tag">Literature Review</span>
+                            <span class="tag">Critical Analysis</span>
+                        </div>
+                    </div>
+
+                    <div class="work-card">
+                        <span class="work-type">Course Project</span>
+                        <h3>Project Title Three</h3>
+                        <p class="work-description">
+                            Significant coursework demonstrating specialized knowledge and research skills.
+                        </p>
+                        <div class="work-meta">
+                            <span class="tag">Experimental</span>
+                            <span class="tag">Data Analysis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Blog & Writing</h2>
+                    <p class="section-description">
+                        Thoughts, insights, and explorations in neuroscience and related topics.
+                    </p>
+                </div>
+
+                <div class="empty-state">
+                    <div class="empty-state-icon">📝</div>
+                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin-bottom: 0.5rem;">Coming Soon</h3>
+                    <p>Blog posts and articles will be published here. Stay tuned for insights on neuroscience, research methods, and academic experiences.</p>
+                </div>
+
+                <!-- Example blog post template - uncomment and duplicate when ready to add posts
+                <article class="blog-card">
+                    <div class="blog-date">January 15, 2025</div>
+                    <h3>Understanding Neural Plasticity: A Primer</h3>
+                    <p class="blog-excerpt">
+                        An introduction to how the brain adapts and changes throughout our lives, exploring the mechanisms 
+                        behind neuroplasticity and its implications for learning and recovery...
+                    </p>
+                    <a href="#" class="read-more">Read more →</a>
+                </article>
+                -->
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>About Me</h2>
+                </div>
+                <div class="about-section">
+                    <div class="about-content">
+                        <p>
+                            I'm currently in my final semester of a master's program in neuroscience, where I've developed 
+                            a deep appreciation for rigorous research methodology and scientific inquiry.
+                        </p>
+                        <p>
+                            My academic journey has been characterized by [describe your research interests, what drives 
+                            your curiosity, and what you hope to contribute to the field]. Through my coursework and 
+                            research projects, I've gained expertise in [mention specific areas, techniques, or topics].
+                        </p>
+                        <p>
+                            Beyond formal research, I'm passionate about making neuroscience accessible and engaging. 
+                            I plan to share insights and perspectives through this platform as I continue to explore 
+                            the fascinating world of brain science.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2>Let's Connect</h2>
+                <p>Interested in my work or want to discuss research? I'd love to hear from you.</p>
+                <div class="contact-links">
+                    <a href="mailto:your.email@example.com" class="contact-btn">Email Me</a>
+                    <a href="https://linkedin.com/in/yourprofile" class="contact-btn">LinkedIn</a>
+                    <a href="https://twitter.com/yourhandle" class="contact-btn">Twitter</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Your Name. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
